@@ -35,13 +35,13 @@
 
 @layer components {
   .position-node {
-    @apply min-w-20 w-auto h-8 px-2 py-1 rounded-lg;
+    @apply min-w-16 w-auto h-7 px-1.5 py-0.5 rounded-md;
     @apply shadow-sm border border-white/20;
     @apply backdrop-blur-sm transition-all duration-200;
     @apply font-interface text-xs font-semibold text-center leading-tight;
     @apply cursor-pointer select-none;
     @apply whitespace-nowrap overflow-hidden text-ellipsis;
-    max-width: 100px;
+    max-width: 80px;
 
     &:hover {
       @apply transform scale-105 -translate-y-0.5 shadow-md;
@@ -55,14 +55,14 @@
   /* Mobile touch optimization */
   @media (max-width: 768px) {
     .position-node {
-      min-width: 6rem; /* Increased from 4rem for better touch targets */
+      min-width: 4.5rem; /* Reduced from 6rem for smaller buttons */
       width: auto;
-      min-height: 48px; /* Increased from 44px for better touch targets */
+      min-height: 36px; /* Reduced from 48px for smaller buttons */
       height: auto;
-      padding: 0.75rem 1rem; /* Increased padding for larger touch area */
-      font-size: 0.75rem; /* Increased from 0.65rem for better readability */
+      padding: 0.5rem 0.75rem; /* Reduced padding for smaller touch area */
+      font-size: 0.7rem; /* Reduced from 0.75rem for smaller text */
       line-height: 1.2;
-      max-width: 140px; /* Increased from 100px to accommodate larger text */
+      max-width: 100px; /* Reduced from 140px to accommodate smaller text */
     }
   }
 
