@@ -24,7 +24,7 @@ export const routes: RouteDefinition[] = [
           'Poor takedown setup',
           'Neglecting defensive positioning'
         ],
-        coordinates: { x: 100, y: 100 },
+        coordinates: { x: 100, y: 80 },
         transitions: [
           {
             id: 'striking-to-takedown',
@@ -49,7 +49,7 @@ export const routes: RouteDefinition[] = [
           'Failing to follow through',
           'Losing top position'
         ],
-        coordinates: { x: 250, y: 100 },
+        coordinates: { x: 100, y: 160 },
         transitions: [
           {
             id: 'takedown-to-turtle',
@@ -74,7 +74,7 @@ export const routes: RouteDefinition[] = [
           'Poor weight distribution',
           'Rushing the back take'
         ],
-        coordinates: { x: 400, y: 100 },
+        coordinates: { x: 100, y: 240 },
         transitions: [
           {
             id: 'turtle-to-back-mount',
@@ -99,7 +99,7 @@ export const routes: RouteDefinition[] = [
           'Poor choking mechanics',
           'Allowing opponent to escape'
         ],
-        coordinates: { x: 550, y: 100 },
+        coordinates: { x: 100, y: 320 },
         transitions: []
       }
     ],
@@ -150,7 +150,7 @@ export const routes: RouteDefinition[] = [
         description: 'Striking setup for takedown entry',
         keyPoints: ['Range management', 'Takedown setup', 'Timing'],
         commonMistakes: ['Poor distance', 'Telegraphing takedowns'],
-        coordinates: { x: 100, y: 250 },
+        coordinates: { x: 100, y: 80 },
         transitions: [
           {
             id: 'striking-to-takedown-2',
@@ -167,7 +167,7 @@ export const routes: RouteDefinition[] = [
         description: 'Takedown execution with guard landing',
         keyPoints: ['Takedown execution', 'Position control'],
         commonMistakes: ['Poor follow-through', 'Landing in guard'],
-        coordinates: { x: 250, y: 250 },
+        coordinates: { x: 100, y: 160 },
         transitions: [
           {
             id: 'takedown-to-guard-2',
@@ -184,7 +184,7 @@ export const routes: RouteDefinition[] = [
         description: 'Top position in guard, working to pass',
         keyPoints: ['Posture', 'Pressure', 'Guard passing'],
         commonMistakes: ['Poor posture', 'Getting swept'],
-        coordinates: { x: 400, y: 250 },
+        coordinates: { x: 100, y: 240 },
         transitions: [
           {
             id: 'guard-to-side-2',
@@ -201,7 +201,7 @@ export const routes: RouteDefinition[] = [
         description: 'Dominant side control position',
         keyPoints: ['Hip control', 'Weight distribution', 'Submissions'],
         commonMistakes: ['Allowing escapes', 'Poor pressure'],
-        coordinates: { x: 550, y: 250 },
+        coordinates: { x: 100, y: 320 },
         transitions: [
           {
             id: 'side-to-turtle-2',
@@ -218,7 +218,7 @@ export const routes: RouteDefinition[] = [
         description: 'Control in turtle position',
         keyPoints: ['Hip control', 'Back take setup'],
         commonMistakes: ['Allowing escapes', 'Poor timing'],
-        coordinates: { x: 700, y: 250 },
+        coordinates: { x: 100, y: 400 },
         transitions: [
           {
             id: 'turtle-to-back-2',
@@ -235,7 +235,7 @@ export const routes: RouteDefinition[] = [
         description: 'Final dominant position',
         keyPoints: ['Hook maintenance', 'Submission threats'],
         commonMistakes: ['Losing position', 'Poor submissions'],
-        coordinates: { x: 850, y: 250 },
+        coordinates: { x: 100, y: 480 },
         transitions: []
       }
     ],
@@ -302,7 +302,7 @@ export const routes: RouteDefinition[] = [
         description: 'Initial striking position',
         keyPoints: ['Setup takedowns'],
         commonMistakes: ['Poor entries'],
-        coordinates: { x: 100, y: 400 },
+        coordinates: { x: 100, y: 80 },
         transitions: [
           {
             id: 'striking-to-takedown-3',
@@ -319,7 +319,7 @@ export const routes: RouteDefinition[] = [
         description: 'Takedown execution',
         keyPoints: ['Control landing'],
         commonMistakes: ['Poor positioning'],
-        coordinates: { x: 250, y: 400 },
+        coordinates: { x: 100, y: 160 },
         transitions: [
           {
             id: 'takedown-to-guard-3',
@@ -336,7 +336,7 @@ export const routes: RouteDefinition[] = [
         description: 'Guard passing position',
         keyPoints: ['Pass guard'],
         commonMistakes: ['Getting swept'],
-        coordinates: { x: 400, y: 400 },
+        coordinates: { x: 100, y: 240 },
         transitions: [
           {
             id: 'guard-to-side-3',
@@ -353,7 +353,7 @@ export const routes: RouteDefinition[] = [
         description: 'Side control with multiple transitions',
         keyPoints: ['Control hips', 'Multiple options'],
         commonMistakes: ['Limited transitions'],
-        coordinates: { x: 550, y: 400 },
+        coordinates: { x: 100, y: 320 },
         transitions: [
           {
             id: 'side-to-mount-3',
@@ -370,7 +370,7 @@ export const routes: RouteDefinition[] = [
         description: 'Mount position with branching options',
         keyPoints: ['Maintain mount', 'Multiple paths'],
         commonMistakes: ['Getting reversed'],
-        coordinates: { x: 700, y: 400 },
+        coordinates: { x: 100, y: 400 },
         transitions: [
           {
             id: 'mount-to-back-3',
@@ -399,7 +399,7 @@ export const routes: RouteDefinition[] = [
         description: 'Back control finish',
         keyPoints: ['Maintain control'],
         commonMistakes: ['Losing hooks'],
-        coordinates: { x: 850, y: 350 },
+        coordinates: { x: 100, y: 480 },
         transitions: []
       },
       {
@@ -409,7 +409,7 @@ export const routes: RouteDefinition[] = [
         description: 'Rear facing control position',
         keyPoints: ['Control structure'],
         commonMistakes: ['Poor control'],
-        coordinates: { x: 850, y: 300 },
+        coordinates: { x: 20, y: 480 },
         transitions: []
       },
       {
@@ -419,7 +419,7 @@ export const routes: RouteDefinition[] = [
         description: 'Leg attack position',
         keyPoints: ['Isolate leg'],
         commonMistakes: ['Poor entries'],
-        coordinates: { x: 850, y: 450 },
+        coordinates: { x: 180, y: 480 },
         transitions: []
       }
     ],
@@ -504,7 +504,7 @@ export const routes: RouteDefinition[] = [
         description: 'Initial engagement',
         keyPoints: ['Setup entries'],
         commonMistakes: ['Poor timing'],
-        coordinates: { x: 100, y: 550 },
+        coordinates: { x: 100, y: 80 },
         transitions: [
           {
             id: 'striking-to-takedown-4',
@@ -521,7 +521,7 @@ export const routes: RouteDefinition[] = [
         description: 'Takedown to guard',
         keyPoints: ['Control fall'],
         commonMistakes: ['Bad positioning'],
-        coordinates: { x: 250, y: 550 },
+        coordinates: { x: 100, y: 160 },
         transitions: [
           {
             id: 'takedown-to-guard-4',
@@ -538,7 +538,7 @@ export const routes: RouteDefinition[] = [
         description: 'Guard work',
         keyPoints: ['Pass efficiently'],
         commonMistakes: ['Stalling'],
-        coordinates: { x: 400, y: 550 },
+        coordinates: { x: 100, y: 240 },
         transitions: [
           {
             id: 'guard-to-mount-4',
@@ -555,7 +555,7 @@ export const routes: RouteDefinition[] = [
         description: 'Mount with branching paths',
         keyPoints: ['Control center', 'Branch options'],
         commonMistakes: ['Limited vision'],
-        coordinates: { x: 550, y: 550 },
+        coordinates: { x: 100, y: 320 },
         transitions: [
           {
             id: 'mount-to-back-4',
@@ -584,7 +584,7 @@ export const routes: RouteDefinition[] = [
         description: 'Back control',
         keyPoints: ['Secure position'],
         commonMistakes: ['Rushing'],
-        coordinates: { x: 700, y: 500 },
+        coordinates: { x: 100, y: 400 },
         transitions: []
       },
       {
@@ -594,7 +594,7 @@ export const routes: RouteDefinition[] = [
         description: 'Rear facing control',
         keyPoints: ['Structure control'],
         commonMistakes: ['Poor angles'],
-        coordinates: { x: 700, y: 450 },
+        coordinates: { x: 20, y: 400 },
         transitions: []
       },
       {
@@ -604,7 +604,7 @@ export const routes: RouteDefinition[] = [
         description: 'Leg submission',
         keyPoints: ['Leg isolation'],
         commonMistakes: ['Poor mechanics'],
-        coordinates: { x: 700, y: 600 },
+        coordinates: { x: 180, y: 400 },
         transitions: []
       }
     ],
@@ -664,6 +664,108 @@ export const routes: RouteDefinition[] = [
       estimatedTime: 35,
       prerequisites: ['Advanced mount work', 'Leg attacks'],
       tags: ['advanced', 'mount-focused', 'submissions']
+    }
+  },
+  {
+    id: 'attacking-legs',
+    name: 'Attacking the Legs',
+    description: 'Direct path to leg attacks from guard position',
+    difficulty: 'intermediate',
+    startPosition: 'striking-offense-5',
+    endPositions: ['leglock-offense-5'],
+    positions: [
+      {
+        id: 'striking-offense-5',
+        name: 'Striking Offense',
+        type: 'striking',
+        description: 'Initial striking engagement',
+        keyPoints: ['Setup takedown entries', 'Create openings'],
+        commonMistakes: ['Poor timing', 'Telegraphing intent'],
+        coordinates: { x: 100, y: 80 },
+        transitions: [
+          {
+            id: 'striking-to-takedown-5',
+            target: 'takedown-offense-5',
+            method: 'Takedown entry',
+            difficulty: 2
+          }
+        ]
+      },
+      {
+        id: 'takedown-offense-5',
+        name: 'Takedown Offense',
+        type: 'takedown',
+        description: 'Takedown with guard entry setup',
+        keyPoints: ['Control landing position', 'Setup guard work'],
+        commonMistakes: ['Poor positioning', 'Missing leg entry'],
+        coordinates: { x: 100, y: 160 },
+        transitions: [
+          {
+            id: 'takedown-to-guard-5',
+            target: 'guard-top-5',
+            method: 'Guard position',
+            difficulty: 2
+          }
+        ]
+      },
+      {
+        id: 'guard-top-5',
+        name: 'Guard Top',
+        type: 'guard',
+        description: 'Guard position focused on leg attacks',
+        keyPoints: ['Control base', 'Identify leg entry', 'Timing'],
+        commonMistakes: ['Poor base', 'Missing entries', 'Getting swept'],
+        coordinates: { x: 100, y: 240 },
+        transitions: [
+          {
+            id: 'guard-to-leglock-5',
+            target: 'leglock-offense-5',
+            method: 'Leg attack entry',
+            difficulty: 4
+          }
+        ]
+      },
+      {
+        id: 'leglock-offense-5',
+        name: 'Leglock Offense',
+        type: 'leglock',
+        description: 'Leg submission position',
+        keyPoints: ['Isolate leg', 'Control structure', 'Apply technique'],
+        commonMistakes: ['Poor control', 'Rushing submission', 'Bad angles'],
+        coordinates: { x: 100, y: 320 },
+        transitions: []
+      }
+    ],
+    connections: [
+      {
+        id: 'conn-striking-takedown-5',
+        from: 'striking-offense-5',
+        to: 'takedown-offense-5',
+        type: 'primary',
+        method: 'Takedown entry',
+        difficulty: 2
+      },
+      {
+        id: 'conn-takedown-guard-5',
+        from: 'takedown-offense-5',
+        to: 'guard-top-5',
+        type: 'primary',
+        method: 'Guard position',
+        difficulty: 2
+      },
+      {
+        id: 'conn-guard-leglock-5',
+        from: 'guard-top-5',
+        to: 'leglock-offense-5',
+        type: 'primary',
+        method: 'Leg attack entry',
+        difficulty: 4
+      }
+    ],
+    metadata: {
+      estimatedTime: 20,
+      prerequisites: ['Guard work', 'Leg attack basics'],
+      tags: ['intermediate', 'leg-attacks', 'submissions']
     }
   }
 ]

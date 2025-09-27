@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { routes } from '@/lib/data/routes'
 import { PositionDefinition } from '@/types'
 import { AnimatedPositionNode } from '@/components/ui/AnimatedPositionNode'
@@ -11,18 +11,18 @@ interface MasterPlanOverviewProps {
   className?: string
 }
 
-// Define the exact layout based on the master plan image
+// Define the exact layout based on the master plan image - now vertical flow with mobile-friendly spacing
 const ROUTE_LAYOUTS = [
   {
     id: 'short-route',
     name: 'Route 1',
     title: 'The Short Route',
-    y: 80,
+    x: { desktop: 100, mobile: 50 },
     positions: [
-      { id: 'striking-offense', name: 'Striking Offense', type: 'striking', x: 300 },
-      { id: 'takedown-offense', name: 'Takedown Offense', type: 'takedown', x: 480 },
-      { id: 'turtle-top', name: 'Turtle Top', type: 'turtle', x: 660 },
-      { id: 'back-mount-offense', name: 'Back Mount Offense', type: 'backMount', x: 840 },
+      { id: 'striking-offense', name: 'Striking Offense', type: 'striking', y: { desktop: 80, mobile: 100 } },
+      { id: 'takedown-offense', name: 'Takedown Offense', type: 'takedown', y: { desktop: 160, mobile: 200 } },
+      { id: 'turtle-top', name: 'Turtle Top', type: 'turtle', y: { desktop: 240, mobile: 300 } },
+      { id: 'back-mount-offense', name: 'Back Mount Offense', type: 'backMount', y: { desktop: 320, mobile: 400 } },
     ],
     connections: [
       { from: 0, to: 1, type: 'straight' },
@@ -34,14 +34,14 @@ const ROUTE_LAYOUTS = [
     id: 'meat-grinder',
     name: 'Route 2',
     title: 'The Meat Grinder',
-    y: 160,
+    x: { desktop: 280, mobile: 200 },
     positions: [
-      { id: 'striking-offense-2', name: 'Striking Offense', type: 'striking', x: 300 },
-      { id: 'takedown-offense-2', name: 'Takedown Offense', type: 'takedown', x: 480 },
-      { id: 'guard-top-2', name: 'Guard Top', type: 'guard', x: 660 },
-      { id: 'side-mount-top-2', name: 'Side Mount Top', type: 'sideMount', x: 840 },
-      { id: 'turtle-top-2', name: 'Turtle Top', type: 'turtle', x: 1020 },
-      { id: 'back-mount-offense-2', name: 'Back Mount Offense', type: 'backMount', x: 1200 },
+      { id: 'striking-offense-2', name: 'Striking Offense', type: 'striking', y: { desktop: 80, mobile: 100 } },
+      { id: 'takedown-offense-2', name: 'Takedown Offense', type: 'takedown', y: { desktop: 160, mobile: 200 } },
+      { id: 'guard-top-2', name: 'Guard Top', type: 'guard', y: { desktop: 240, mobile: 300 } },
+      { id: 'side-mount-top-2', name: 'Side Mount Top', type: 'sideMount', y: { desktop: 320, mobile: 400 } },
+      { id: 'turtle-top-2', name: 'Turtle Top', type: 'turtle', y: { desktop: 400, mobile: 500 } },
+      { id: 'back-mount-offense-2', name: 'Back Mount Offense', type: 'backMount', y: { desktop: 480, mobile: 600 } },
     ],
     connections: [
       { from: 0, to: 1, type: 'straight' },
@@ -55,16 +55,16 @@ const ROUTE_LAYOUTS = [
     id: 'mount-grinder-a',
     name: 'Route 3',
     title: 'The Mount Grinder A',
-    y: 240,
+    x: { desktop: 460, mobile: 350 },
     positions: [
-      { id: 'striking-offense-3', name: 'Striking Offense', type: 'striking', x: 300 },
-      { id: 'takedown-offense-3', name: 'Takedown Offense', type: 'takedown', x: 480 },
-      { id: 'guard-top-3', name: 'Guard Top', type: 'guard', x: 660 },
-      { id: 'side-mount-top-3', name: 'Side Mount Top', type: 'sideMount', x: 840 },
-      { id: 'mount-top-3', name: 'Mount Top', type: 'mount', x: 1020 },
-      { id: 'back-mount-offense-3', name: 'Back Mount Offense', type: 'backMount', x: 1200 },
-      { id: 'rfc-offense-3', name: 'RFC Offense', type: 'rfc', x: 1200, y: -40 },
-      { id: 'leglock-offense-3', name: 'Leglock Offense', type: 'leglock', x: 1200, y: 40 },
+      { id: 'striking-offense-3', name: 'Striking Offense', type: 'striking', y: { desktop: 80, mobile: 100 } },
+      { id: 'takedown-offense-3', name: 'Takedown Offense', type: 'takedown', y: { desktop: 160, mobile: 200 } },
+      { id: 'guard-top-3', name: 'Guard Top', type: 'guard', y: { desktop: 240, mobile: 300 } },
+      { id: 'side-mount-top-3', name: 'Side Mount Top', type: 'sideMount', y: { desktop: 320, mobile: 400 } },
+      { id: 'mount-top-3', name: 'Mount Top', type: 'mount', y: { desktop: 400, mobile: 500 } },
+      { id: 'back-mount-offense-3', name: 'Back Mount Offense', type: 'backMount', y: { desktop: 480, mobile: 600 } },
+      { id: 'rfc-offense-3', name: 'RFC Offense', type: 'rfc', y: { desktop: 560, mobile: 700 }, x: { desktop: -80, mobile: -60 } },
+      { id: 'leglock-offense-3', name: 'Leglock Offense', type: 'leglock', y: { desktop: 560, mobile: 700 }, x: { desktop: 80, mobile: 60 } },
     ],
     connections: [
       { from: 0, to: 1, type: 'straight' },
@@ -72,31 +72,48 @@ const ROUTE_LAYOUTS = [
       { from: 2, to: 3, type: 'straight' },
       { from: 3, to: 4, type: 'straight' },
       { from: 4, to: 5, type: 'straight' },
-      { from: 4, to: 6, type: 'curved-up' },
-      { from: 4, to: 7, type: 'curved-down' },
+      { from: 4, to: 6, type: 'curved-left' },
+      { from: 4, to: 7, type: 'curved-right' },
     ]
   },
   {
     id: 'mount-grinder-b',
     name: 'Route 4',
     title: 'The Mount Grinder B',
-    y: 320,
+    x: { desktop: 640, mobile: 500 },
     positions: [
-      { id: 'striking-offense-4', name: 'Striking Offense', type: 'striking', x: 300 },
-      { id: 'takedown-offense-4', name: 'Takedown Offense', type: 'takedown', x: 480 },
-      { id: 'guard-top-4', name: 'Guard Top', type: 'guard', x: 660 },
-      { id: 'mount-top-4', name: 'Mount Top', type: 'mount', x: 840 },
-      { id: 'back-mount-offense-4', name: 'Back Mount Offense', type: 'backMount', x: 1020 },
-      { id: 'rfc-offense-4', name: 'RFC Offense', type: 'rfc', x: 1020, y: -40 },
-      { id: 'leglock-offense-4', name: 'Leglock Offense', type: 'leglock', x: 1020, y: 40 },
+      { id: 'striking-offense-4', name: 'Striking Offense', type: 'striking', y: { desktop: 80, mobile: 100 } },
+      { id: 'takedown-offense-4', name: 'Takedown Offense', type: 'takedown', y: { desktop: 160, mobile: 200 } },
+      { id: 'guard-top-4', name: 'Guard Top', type: 'guard', y: { desktop: 240, mobile: 300 } },
+      { id: 'mount-top-4', name: 'Mount Top', type: 'mount', y: { desktop: 320, mobile: 400 } },
+      { id: 'back-mount-offense-4', name: 'Back Mount Offense', type: 'backMount', y: { desktop: 400, mobile: 500 } },
+      { id: 'rfc-offense-4', name: 'RFC Offense', type: 'rfc', y: { desktop: 480, mobile: 600 }, x: { desktop: -80, mobile: -60 } },
+      { id: 'leglock-offense-4', name: 'Leglock Offense', type: 'leglock', y: { desktop: 480, mobile: 600 }, x: { desktop: 80, mobile: 60 } },
     ],
     connections: [
       { from: 0, to: 1, type: 'straight' },
       { from: 1, to: 2, type: 'straight' },
       { from: 2, to: 3, type: 'straight' },
       { from: 3, to: 4, type: 'straight' },
-      { from: 3, to: 5, type: 'curved-up' },
-      { from: 3, to: 6, type: 'curved-down' },
+      { from: 3, to: 5, type: 'curved-left' },
+      { from: 3, to: 6, type: 'curved-right' },
+    ]
+  },
+  {
+    id: 'attacking-legs',
+    name: 'Route 5',
+    title: 'Attacking the Legs',
+    x: { desktop: 820, mobile: 650 },
+    positions: [
+      { id: 'striking-offense-5', name: 'Striking Offense', type: 'striking', y: { desktop: 80, mobile: 100 } },
+      { id: 'takedown-offense-5', name: 'Takedown Offense', type: 'takedown', y: { desktop: 160, mobile: 200 } },
+      { id: 'guard-top-5', name: 'Guard Top', type: 'guard', y: { desktop: 240, mobile: 300 } },
+      { id: 'leglock-offense-5', name: 'Leglock Offense', type: 'leglock', y: { desktop: 320, mobile: 400 } },
+    ],
+    connections: [
+      { from: 0, to: 1, type: 'straight' },
+      { from: 1, to: 2, type: 'straight' },
+      { from: 2, to: 3, type: 'straight' },
     ]
   }
 ]
@@ -104,6 +121,24 @@ const ROUTE_LAYOUTS = [
 export function MasterPlanOverview({ onPositionClick, className }: MasterPlanOverviewProps) {
   const [hoveredPosition, setHoveredPosition] = useState<string | null>(null)
   const [selectedPosition, setSelectedPosition] = useState<string | null>(null)
+  const [isMobile, setIsMobile] = useState(false)
+
+  // Detect mobile screen size
+  React.useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  // Helper function to get responsive value
+  const getResponsiveValue = (value: { desktop: number; mobile: number } | number) => {
+    if (typeof value === 'number') return value
+    return isMobile ? value.mobile : value.desktop
+  }
 
   const handlePositionClick = (positionId: string) => {
     setSelectedPosition(selectedPosition === positionId ? null : positionId)
@@ -165,15 +200,19 @@ export function MasterPlanOverview({ onPositionClick, className }: MasterPlanOve
     </defs>
   )
 
-  // Render connection arrows
+  // Render connection arrows for vertical flow
   const renderConnection = (routeLayout: any, conn: any) => {
     const fromPos = routeLayout.positions[conn.from]
     const toPos = routeLayout.positions[conn.to]
 
-    const fromX = fromPos.x + 100 // button width
-    const fromY = routeLayout.y + (fromPos.y || 0) + 16 // button height / 2
-    const toX = toPos.x
-    const toY = routeLayout.y + (toPos.y || 0) + 16
+    const routeX = getResponsiveValue(routeLayout.x)
+    const buttonWidth = isMobile ? 80 : 64
+    const buttonHeight = isMobile ? 36 : 28
+
+    const fromX = routeX + getResponsiveValue(fromPos.x || 0) + buttonWidth / 2
+    const fromY = getResponsiveValue(fromPos.y) + buttonHeight
+    const toX = routeX + getResponsiveValue(toPos.x || 0) + buttonWidth / 2
+    const toY = getResponsiveValue(toPos.y)
 
     if (conn.type === 'straight') {
       return (
@@ -188,10 +227,10 @@ export function MasterPlanOverview({ onPositionClick, className }: MasterPlanOve
           markerEnd="url(#blue-arrow)"
         />
       )
-    } else if (conn.type === 'curved-up') {
-      const midX = fromX + (toX - fromX) / 2
-      const controlY = fromY - 40
-      const path = `M ${fromX} ${fromY} Q ${midX} ${controlY} ${toX} ${toY}`
+    } else if (conn.type === 'curved-left') {
+      const midY = fromY + (toY - fromY) / 2
+      const controlX = fromX - 60
+      const path = `M ${fromX} ${fromY} Q ${controlX} ${midY} ${toX} ${toY}`
 
       return (
         <path
@@ -203,10 +242,10 @@ export function MasterPlanOverview({ onPositionClick, className }: MasterPlanOve
           markerEnd="url(#green-arrow)"
         />
       )
-    } else if (conn.type === 'curved-down') {
-      const midX = fromX + (toX - fromX) / 2
-      const controlY = fromY + 40
-      const path = `M ${fromX} ${fromY} Q ${midX} ${controlY} ${toX} ${toY}`
+    } else if (conn.type === 'curved-right') {
+      const midY = fromY + (toY - fromY) / 2
+      const controlX = fromX + 60
+      const path = `M ${fromX} ${fromY} Q ${controlX} ${midY} ${toX} ${toY}`
 
       return (
         <path
@@ -224,10 +263,10 @@ export function MasterPlanOverview({ onPositionClick, className }: MasterPlanOve
   return (
     <div className={cn('master-plan-overview w-full', className)}>
       {/* Master Plan SVG */}
-      <div className="relative overflow-x-auto bg-foundation-secondary/20 rounded-xl p-4 md:p-8">
+      <div className="relative overflow-auto bg-foundation-secondary/20 rounded-xl p-4 md:p-8">
         <svg
-          viewBox="0 0 1400 400"
-          className="w-full h-auto min-h-[400px] md:min-h-[500px]"
+          viewBox={isMobile ? "0 0 850 800" : "0 0 1000 650"}
+          className="w-full h-auto min-h-[800px] md:min-h-[650px]"
           preserveAspectRatio="xMidYMid meet"
         >
           {renderArrowMarkers()}
@@ -237,18 +276,20 @@ export function MasterPlanOverview({ onPositionClick, className }: MasterPlanOve
             <g key={routeLayout.id}>
               {/* Route label */}
               <text
-                x="80"
-                y={routeLayout.y + 20}
+                x={getResponsiveValue(routeLayout.x) + (isMobile ? 60 : 50)}
+                y={isMobile ? 50 : 40}
                 className="fill-white font-display text-sm"
-                style={{ fontSize: '14px', fontStyle: 'italic' }}
+                style={{ fontSize: isMobile ? '12px' : '14px', fontStyle: 'italic' }}
+                textAnchor="middle"
               >
                 {routeLayout.name}
               </text>
               <text
-                x="80"
-                y={routeLayout.y + 38}
+                x={getResponsiveValue(routeLayout.x) + (isMobile ? 60 : 50)}
+                y={isMobile ? 68 : 58}
                 className="fill-white font-display text-sm font-bold"
-                style={{ fontSize: '16px', fontStyle: 'italic' }}
+                style={{ fontSize: isMobile ? '14px' : '16px', fontStyle: 'italic' }}
+                textAnchor="middle"
               >
                 {routeLayout.title}
               </text>
@@ -261,19 +302,24 @@ export function MasterPlanOverview({ onPositionClick, className }: MasterPlanOve
                 const positionData = getPositionData(routeLayout.id, pos.id)
                 if (!positionData) return null
 
+                const routeX = getResponsiveValue(routeLayout.x)
+                const posX = getResponsiveValue(pos.x || 0)
+                const posY = getResponsiveValue(pos.y)
+                const buttonWidth = isMobile ? 80 : 64
+                const buttonHeight = isMobile ? 36 : 28
+
                 return (
                   <foreignObject
                     key={pos.id}
-                    x={pos.x}
-                    y={routeLayout.y + (pos.y || 0)}
-                    width="140"
-                    height="48"
-                    className="md:w-[100px] md:h-[32px]"
+                    x={routeX + posX}
+                    y={posY}
+                    width={buttonWidth}
+                    height={buttonHeight}
                   >
                     <AnimatedPositionNode
                       position={{
                         ...positionData,
-                        coordinates: { x: pos.x, y: routeLayout.y + (pos.y || 0) }
+                        coordinates: { x: routeX + posX, y: posY }
                       }}
                       isActive={selectedPosition === pos.id}
                       isHovered={hoveredPosition === pos.id}
