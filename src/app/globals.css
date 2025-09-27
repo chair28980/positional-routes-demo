@@ -55,11 +55,14 @@
   /* Mobile touch optimization */
   @media (max-width: 768px) {
     .position-node {
-      min-width: 4rem;
-      height: 2rem;
-      padding: 0.25rem 0.5rem;
-      font-size: 0.65rem;
-      min-height: 44px; /* Minimum touch target size */
+      min-width: 6rem; /* Increased from 4rem for better touch targets */
+      width: auto;
+      min-height: 48px; /* Increased from 44px for better touch targets */
+      height: auto;
+      padding: 0.75rem 1rem; /* Increased padding for larger touch area */
+      font-size: 0.75rem; /* Increased from 0.65rem for better readability */
+      line-height: 1.2;
+      max-width: 140px; /* Increased from 100px to accommodate larger text */
     }
   }
 

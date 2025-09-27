@@ -224,10 +224,10 @@ export function MasterPlanOverview({ onPositionClick, className }: MasterPlanOve
   return (
     <div className={cn('master-plan-overview w-full', className)}>
       {/* Master Plan SVG */}
-      <div className="relative overflow-x-auto bg-foundation-secondary/20 rounded-xl p-8">
+      <div className="relative overflow-x-auto bg-foundation-secondary/20 rounded-xl p-4 md:p-8">
         <svg
           viewBox="0 0 1400 400"
-          className="w-full h-auto min-h-[400px]"
+          className="w-full h-auto min-h-[400px] md:min-h-[500px]"
           preserveAspectRatio="xMidYMid meet"
         >
           {renderArrowMarkers()}
@@ -266,8 +266,9 @@ export function MasterPlanOverview({ onPositionClick, className }: MasterPlanOve
                     key={pos.id}
                     x={pos.x}
                     y={routeLayout.y + (pos.y || 0)}
-                    width="100"
-                    height="32"
+                    width="140"
+                    height="48"
+                    className="md:w-[100px] md:h-[32px]"
                   >
                     <AnimatedPositionNode
                       position={{
