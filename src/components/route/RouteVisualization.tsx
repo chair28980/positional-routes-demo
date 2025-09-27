@@ -2,8 +2,8 @@
 
 import { useState, useMemo } from 'react'
 import { RouteDefinition, InteractionState } from '@/types'
-import { PositionNode } from '@/components/ui/PositionNode'
-import { FlowConnector } from '@/components/ui/FlowConnector'
+import { AnimatedPositionNode } from '@/components/ui/AnimatedPositionNode'
+import { AnimatedFlowConnector } from '@/components/ui/AnimatedFlowConnector'
 import { cn } from '@/lib/utils'
 
 interface RouteVisualizationProps {
@@ -37,10 +37,10 @@ export function RouteVisualization({
   // Calculate SVG dimensions based on position coordinates
   const svgBounds = useMemo(() => {
     const positions = route.positions
-    const minX = Math.min(...positions.map(p => p.coordinates.x)) - 60
-    const maxX = Math.max(...positions.map(p => p.coordinates.x)) + 160
-    const minY = Math.min(...positions.map(p => p.coordinates.y)) - 40
-    const maxY = Math.max(...positions.map(p => p.coordinates.y)) + 60
+    const minX = Math.min(...positions.map(p => p.coordinates.x)) - 40
+    const maxX = Math.max(...positions.map(p => p.coordinates.x)) + 140
+    const minY = Math.min(...positions.map(p => p.coordinates.y)) - 30
+    const maxY = Math.max(...positions.map(p => p.coordinates.y)) + 50
 
     return {
       minX,
@@ -72,8 +72,8 @@ export function RouteVisualization({
     if (!position) return { x: 0, y: 0 }
 
     return {
-      x: position.coordinates.x + 96, // Node width + padding
-      y: position.coordinates.y + 22, // Half node height
+      x: position.coordinates.x + 100, // Node width + padding
+      y: position.coordinates.y + 16, // Half node height
     }
   }
 
@@ -128,33 +128,35 @@ export function RouteVisualization({
             )
 
             return (
-              <FlowConnector
+              <AnimatedFlowConnector
                 key={connection.id}
                 connection={connection}
                 fromPoint={fromPoint}
                 toPoint={toPoint}
                 isHighlighted={isHighlighted}
                 isAnimated={animateTransitions && isHighlighted}
+                animationDelay={0.2}
               />
             )
           })}
 
           {/* Render position nodes */}
-          {route.positions.map(position => (
+          {route.positions.map((position, index) => (
             <foreignObject
               key={position.id}
               x={position.coordinates.x}
               y={position.coordinates.y}
-              width="96"
-              height="44"
+              width="100"
+              height="32"
             >
-              <PositionNode
+              <AnimatedPositionNode
                 position={position}
                 isActive={currentPosition === position.id}
                 isHovered={interactionState.hoveredPosition === position.id}
                 isVisited={visitedPositions.has(position.id)}
                 onClick={handlePositionClick}
                 onHover={handlePositionHover}
+                animationDelay={index * 0.1}
               />
             </foreignObject>
           ))}

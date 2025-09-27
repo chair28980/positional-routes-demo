@@ -35,29 +35,79 @@
 
 @layer components {
   .position-node {
-    @apply min-w-24 h-11 px-5 py-3 rounded-position;
-    @apply shadow-position border border-white/8;
+    @apply min-w-20 w-auto h-8 px-2 py-1 rounded-lg;
+    @apply shadow-sm border border-white/20;
     @apply backdrop-blur-sm transition-all duration-200;
-    @apply font-interface text-sm font-semibold text-center leading-tight;
+    @apply font-interface text-xs font-semibold text-center leading-tight;
     @apply cursor-pointer select-none;
+    @apply whitespace-nowrap overflow-hidden text-ellipsis;
+    max-width: 100px;
 
     &:hover {
-      @apply transform scale-105 -translate-y-0.5 shadow-position-hover;
+      @apply transform scale-105 -translate-y-0.5 shadow-md;
     }
 
     &:active {
-      @apply transform scale-98 shadow-position-active;
+      @apply transform scale-95 shadow-sm;
+    }
+  }
+
+  /* Mobile touch optimization */
+  @media (max-width: 768px) {
+    .position-node {
+      min-width: 4rem;
+      height: 2rem;
+      padding: 0.25rem 0.5rem;
+      font-size: 0.65rem;
+      min-height: 44px; /* Minimum touch target size */
     }
   }
 
   .route-title {
     @apply font-display text-route-title font-normal italic leading-tight;
-    @apply text-shadow-[0_2px_4px_rgba(0,0,0,0.5)];
     letter-spacing: 0.02em;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
   }
 
   .hero-title {
     @apply font-display text-hero font-bold leading-none;
     letter-spacing: 0.02em;
+  }
+
+  /* Scrollbar styling */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Line clamp utility */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Touch-friendly buttons */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Screen reader only content */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
   }
 }
