@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-interface: 'Inter', 'SF Pro Display', 'Segoe UI', system-ui, sans-serif;
+    --font-display: 'Bebas Neue', 'Arial Black', 'Helvetica Bold', sans-serif;
+    --font-mono: 'JetBrains Mono', 'SF Mono', 'Monaco', monospace;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-feature-settings: 'rlig' 1, 'calt' 1;
+  }
+
+  /* Focus styles for accessibility */
+  *:focus-visible {
+    outline: 2px solid #FFFFFF;
+    outline-offset: 3px;
+  }
+
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .position-node {
+    @apply min-w-24 h-11 px-5 py-3 rounded-position;
+    @apply shadow-position border border-white/8;
+    @apply backdrop-blur-sm transition-all duration-200;
+    @apply font-interface text-sm font-semibold text-center leading-tight;
+    @apply cursor-pointer select-none;
+
+    &:hover {
+      @apply transform scale-105 -translate-y-0.5 shadow-position-hover;
+    }
+
+    &:active {
+      @apply transform scale-98 shadow-position-active;
+    }
+  }
+
+  .route-title {
+    @apply font-display text-route-title font-normal italic leading-tight;
+    @apply text-shadow-[0_2px_4px_rgba(0,0,0,0.5)];
+    letter-spacing: 0.02em;
+  }
+
+  .hero-title {
+    @apply font-display text-hero font-bold leading-none;
+    letter-spacing: 0.02em;
+  }
+}

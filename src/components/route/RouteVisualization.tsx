@@ -1,0 +1,196 @@
+'use client'
+
+import { useState, useMemo } from 'react'
+import { RouteDefinition, InteractionState } from '@/types'
+import { PositionNode } from '@/components/ui/PositionNode'
+import { FlowConnector } from '@/components/ui/FlowConnector'
+import { cn } from '@/lib/utils'
+
+interface RouteVisualizationProps {
+  route: RouteDefinition
+  currentPosition?: string | null
+  visitedPositions?: Set<string>
+  onPositionClick?: (positionId: string) => void
+  showConnectors?: boolean
+  animateTransitions?: boolean
+  highlightPath?: boolean
+  className?: string
+}
+
+export function RouteVisualization({
+  route,
+  currentPosition = null,
+  visitedPositions = new Set(),
+  onPositionClick,
+  showConnectors = true,
+  animateTransitions = false,
+  highlightPath = false,
+  className,
+}: RouteVisualizationProps) {
+  const [interactionState, setInteractionState] = useState<InteractionState>({
+    hoveredPosition: null,
+    selectedPosition: currentPosition,
+    hoveredConnection: null,
+    isNavigating: false,
+  })
+
+  // Calculate SVG dimensions based on position coordinates
+  const svgBounds = useMemo(() => {
+    const positions = route.positions
+    const minX = Math.min(...positions.map(p => p.coordinates.x)) - 60
+    const maxX = Math.max(...positions.map(p => p.coordinates.x)) + 160
+    const minY = Math.min(...positions.map(p => p.coordinates.y)) - 40
+    const maxY = Math.max(...positions.map(p => p.coordinates.y)) + 60
+
+    return {
+      minX,
+      minY,
+      width: maxX - minX,
+      height: maxY - minY,
+      viewBox: `${minX} ${minY} ${maxX - minX} ${maxY - minY}`,
+    }
+  }, [route.positions])
+
+  const handlePositionHover = (positionId: string | null) => {
+    setInteractionState(prev => ({
+      ...prev,
+      hoveredPosition: positionId,
+    }))
+  }
+
+  const handlePositionClick = (positionId: string) => {
+    setInteractionState(prev => ({
+      ...prev,
+      selectedPosition: positionId,
+    }))
+    onPositionClick?.(positionId)
+  }
+
+  // Get connection points for arrows
+  const getConnectionPoint = (positionId: string) => {
+    const position = route.positions.find(p => p.id === positionId)
+    if (!position) return { x: 0, y: 0 }
+
+    return {
+      x: position.coordinates.x + 96, // Node width + padding
+      y: position.coordinates.y + 22, // Half node height
+    }
+  }
+
+  const getPositionPoint = (positionId: string) => {
+    const position = route.positions.find(p => p.id === positionId)
+    if (!position) return { x: 0, y: 0 }
+
+    return {
+      x: position.coordinates.x,
+      y: position.coordinates.y,
+    }
+  }
+
+  return (
+    <div className={cn('route-visualization w-full', className)}>
+      {/* Route Header */}
+      <div className="mb-8">
+        <h2 className="route-title text-white mb-2">{route.name}</h2>
+        <p className="text-white/80 text-sm max-w-2xl">{route.description}</p>
+        <div className="flex items-center gap-4 mt-3">
+          <span className={cn(
+            'px-3 py-1 rounded-full text-xs font-medium',
+            route.difficulty === 'beginner' && 'bg-green-600 text-white',
+            route.difficulty === 'intermediate' && 'bg-yellow-600 text-white',
+            route.difficulty === 'advanced' && 'bg-red-600 text-white'
+          )}>
+            {route.difficulty}
+          </span>
+          <span className="text-white/60 text-xs">
+            Est. {route.metadata.estimatedTime} min
+          </span>
+        </div>
+      </div>
+
+      {/* SVG Route Diagram */}
+      <div className="relative overflow-x-auto">
+        <svg
+          viewBox={svgBounds.viewBox}
+          className="w-full h-auto min-h-[400px]"
+          preserveAspectRatio="xMidYMid meet"
+          role="img"
+          aria-label={`${route.name} route diagram`}
+        >
+          {/* Render connections first (behind nodes) */}
+          {showConnectors && route.connections.map(connection => {
+            const fromPoint = getConnectionPoint(connection.from)
+            const toPoint = getPositionPoint(connection.to)
+            const isHighlighted = highlightPath && (
+              interactionState.hoveredPosition === connection.from ||
+              interactionState.hoveredPosition === connection.to ||
+              currentPosition === connection.from
+            )
+
+            return (
+              <FlowConnector
+                key={connection.id}
+                connection={connection}
+                fromPoint={fromPoint}
+                toPoint={toPoint}
+                isHighlighted={isHighlighted}
+                isAnimated={animateTransitions && isHighlighted}
+              />
+            )
+          })}
+
+          {/* Render position nodes */}
+          {route.positions.map(position => (
+            <foreignObject
+              key={position.id}
+              x={position.coordinates.x}
+              y={position.coordinates.y}
+              width="96"
+              height="44"
+            >
+              <PositionNode
+                position={position}
+                isActive={currentPosition === position.id}
+                isHovered={interactionState.hoveredPosition === position.id}
+                isVisited={visitedPositions.has(position.id)}
+                onClick={handlePositionClick}
+                onHover={handlePositionHover}
+              />
+            </foreignObject>
+          ))}
+        </svg>
+      </div>
+
+      {/* Route Controls */}
+      <div className="flex items-center justify-between mt-6">
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => handlePositionClick(route.startPosition)}
+            className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg text-white text-sm font-medium transition-colors"
+          >
+            Reset to Start
+          </button>
+          <div className="text-white/60 text-xs">
+            {visitedPositions.size} / {route.positions.length} positions explored
+          </div>
+        </div>
+
+        {/* Progress indicator */}
+        <div className="flex items-center gap-2">
+          {route.positions.map(position => (
+            <div
+              key={position.id}
+              className={cn(
+                'w-2 h-2 rounded-full transition-colors',
+                visitedPositions.has(position.id)
+                  ? 'bg-white'
+                  : 'bg-white/20',
+                currentPosition === position.id && 'ring-2 ring-white ring-offset-2 ring-offset-foundation-primary'
+              )}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
